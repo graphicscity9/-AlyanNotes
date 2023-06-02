@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AlyanNotes - Your Personal Notepad</title>
+  <style>
+    /* CSS styling for the notepad interface */
+    /* Add your desired styling here */
+  </style>
+</head>
+<body>
+  <div id="notepad-container">
+    <textarea id="note-input" placeholder="Start typing your notes here..."></textarea>
+    <button id="save-btn">Save</button>
+  </div>
+
+  <script>
+    // Function to save the note to the local machine
+    function saveNote() {
+      const noteInput = document.getElementById('note-input');
+      const noteContent = noteInput.value;
+      const filename = 'alynote.txt';
+
+      // Create a new Blob object with the note content
+      const blob = new Blob([noteContent], { type: 'text/plain' });
+
+      // Create a temporary anchor element to download the note
+      const tempAnchor = document.createElement('a');
+      tempAnchor.href = URL.createObjectURL(blob);
+      tempAnchor.download = filename;
+
+      // Programmatically click the anchor element to trigger the download
+      tempAnchor.click();
+
+      // Clean up the temporary anchor element
+      URL.revokeObjectURL(tempAnchor.href);
+      tempAnchor.remove();
+    }
+
+    // Event listener for the save button click event
+    const saveButton = document.getElementById('save-btn');
+    saveButton.addEventListener('click', saveNote);
+  </script>
+</body>
+</html>
